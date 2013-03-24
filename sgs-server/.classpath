@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/sgs-shared"/>
+	<classpathentry exported="true" kind="lib" path="lib/jung-graph-impl-2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jung-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/je-5.0.73.jar" sourcepath="lib/je"/>
+	<classpathentry exported="true" kind="src" path="/sgs-server-api"/>
+	<classpathentry exported="true" kind="src" path="/sgs-server-internal-api"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
