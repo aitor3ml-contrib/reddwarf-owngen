@@ -299,6 +299,8 @@ public interface DataManager {
      */
     <T> ManagedReference<T> createReference(T object);
 
+    <T> ManagedReference<T> createReferenceForId(BigInteger id);
+    
     /**
      * Returns a unique identifier for the object, storing the object in the
      * data manager if it is <a href="#transient">transient</a>.  The value

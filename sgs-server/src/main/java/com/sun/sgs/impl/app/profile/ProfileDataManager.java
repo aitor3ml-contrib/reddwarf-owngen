@@ -106,4 +106,9 @@ public class ProfileDataManager implements DataManager {
     public BigInteger getObjectId(Object object) {
 	return backingManager.getObjectId(object);
     }
+
+	@Override
+	public <T> ManagedReference<T> createReferenceForId(BigInteger id) {
+		return backingManager.createReferenceForId(id);
+	}
 }
