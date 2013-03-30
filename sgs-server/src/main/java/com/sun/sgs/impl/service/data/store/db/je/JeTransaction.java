@@ -27,6 +27,8 @@ import com.sleepycat.je.TransactionConfig;
 import com.sleepycat.je.XAEnvironment;
 import com.sun.sgs.service.store.db.DbTransaction;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
 import javax.transaction.xa.XAException;
 import javax.transaction.xa.Xid;
 
@@ -108,7 +110,7 @@ class JeTransaction implements DbTransaction {
 	    /* Avoid overflow -- BDB treats 0 as unlimited */
 	    long timeoutMicros =
 		(timeout < (Long.MAX_VALUE / 1000)) ? timeout * 1000 : 0;
-	    txn.setTxnTimeout(timeoutMicros);
+	    txn.setTxnTimeout(timeoutMicros, TimeUnit.MICROSECONDS);
 	} catch (DatabaseException e) {
 	    throw JeEnvironment.convertException(e, false);
 	}

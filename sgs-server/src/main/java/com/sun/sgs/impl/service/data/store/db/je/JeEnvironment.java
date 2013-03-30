@@ -22,13 +22,14 @@
 package com.sun.sgs.impl.service.data.store.db.je;
 
 import com.sleepycat.je.DatabaseException;
-import com.sleepycat.je.DeadlockException;
+import com.sleepycat.je.Durability;
 import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
+import com.sleepycat.je.EnvironmentFailureException;
 import com.sleepycat.je.ExceptionEvent;
 import com.sleepycat.je.ExceptionListener;
-import com.sleepycat.je.LockNotGrantedException;
-import com.sleepycat.je.RunRecoveryException;
+import com.sleepycat.je.LockConflictException;
+import com.sleepycat.je.LockTimeoutException;
 import com.sleepycat.je.StatsConfig;
 import com.sleepycat.je.TransactionConfig;
 import com.sleepycat.je.XAEnvironment;
@@ -53,6 +54,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Enumeration;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.transaction.xa.XAException;
@@ -382,9 +384,9 @@ public class JeEnvironment implements DbEnvironment {
 	 * detected.  Setting the value on the transaction appears to have no
 	 * effect on deadlock detection.  -tjb@sun.com (11/05/2007)
 	 */
- 	config.setLockTimeout(lockTimeoutMicros);
+ 	config.setLockTimeout(lockTimeoutMicros, TimeUnit.MICROSECONDS);
 	config.setTransactional(true);
-	config.setTxnWriteNoSync(!flushToDisk);
+	config.setDurability(flushToDisk? Durability.COMMIT_NO_SYNC : Durability.COMMIT_WRITE_NO_SYNC);
 	for (Enumeration<?> names = propertiesWithDefaults.propertyNames();
 	     names.hasMoreElements(); )
 	{
@@ -446,13 +448,13 @@ public class JeEnvironment implements DbEnvironment {
     static RuntimeException convertException(
 	Exception e, boolean convertTxnExceptions)
     {
-	if (convertTxnExceptions && e instanceof LockNotGrantedException) {
+	if (convertTxnExceptions && e instanceof LockTimeoutException) {
 	    return new TransactionTimeoutException(
 		"Transaction timed out: " + e.getMessage(), e);
-	} else if (convertTxnExceptions && e instanceof DeadlockException) {
+	} else if (convertTxnExceptions && e instanceof LockConflictException) {
 	    return new TransactionConflictException(
 		"Transaction conflict: " + e.getMessage(), e);
-	} else if (e instanceof RunRecoveryException) {
+	} else if (e instanceof EnvironmentFailureException) {
 	    /*
 	     * It is tricky to clean up the data structures in this instance in
 	     * order to reopen the Berkeley DB databases, because it's hard to
@@ -484,7 +486,7 @@ public class JeEnvironment implements DbEnvironment {
     /** Returns the lock timeout in microseconds -- for testing. */
     private long getLockTimeoutMicros() {
 	try {
-	    return env.getConfig().getLockTimeout();
+	    return env.getConfig().getLockTimeout(TimeUnit.MICROSECONDS);
 	} catch (DatabaseException e) {
 	    throw convertException(e, false);
 	}
