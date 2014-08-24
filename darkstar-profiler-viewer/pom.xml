@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.gamalocus.sgs</groupId>
+	<artifactId>darkstar-profiler-viewer</artifactId>
+	<name>Project Darkstar Profiler Viewer</name>
+	<packaging>jar</packaging>
+	<version>0.0.5-SNAPSHOT</version>
+	<inceptionYear>2008</inceptionYear>
+	<url>http://code.google.com/p/darkstar-profiler/</url>
+	<description><![CDATA[Profiling utilities for Project Darkstar based applications]]></description>
+
+	<dependencies>
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jcommon</artifactId>
+			<version>1.0.14</version>
+			<!-- scope>provided</scope-->
+		</dependency>
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.11</version>
+			<!--scope>provided</scope-->
+		</dependency>
+		<dependency>
+			<groupId>com.gamalocus.sgs</groupId>
+			<artifactId>darkstar-profiler-common</artifactId>
+			<version>0.0.5-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+	
+		<plugins>
+			<!-- Use 1.6 for source and target for the server code -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Main-Class><![CDATA[com.gamalocus.sgs.profile.viewer.ProfileViewer]]></Main-Class>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<finalName>
+								DarkstarProfileViewer-0.0.5
+							</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/sgs-server-internal-api"/>
+	<classpathentry kind="src" path="/sgs-server"/>
+	<classpathentry kind="src" path="/sgs-shared"/>
+	<classpathentry kind="src" path="/darkstar-profiler-common"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

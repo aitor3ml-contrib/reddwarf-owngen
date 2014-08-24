@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="lib" path="deps/jfreechart-1.0.11/lib/jcommon-1.0.14.jar"/>
+	<classpathentry kind="lib" path="deps/jfreechart-1.0.11/lib/jfreechart-1.0.11.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/darkstar-profiler-common"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
