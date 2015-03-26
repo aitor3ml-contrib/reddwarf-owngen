@@ -163,7 +163,7 @@ public class ContentionAggregationPanel extends JPanel implements ListSelectionL
 		Map<Long, RawAccessedObject> conflicts = new Hashtable<Long, RawAccessedObject>();
 		for (RawAccessedObject obj : report.accessedObjectDetail.accessedObjects)
 		{
-			if(conflictingReport.accessedObjectDetail != null)
+			if(conflictingReport != null && conflictingReport.accessedObjectDetail != null)
 			{
 				for (RawAccessedObject conflictobj : conflictingReport.accessedObjectDetail.accessedObjects)
 				{
