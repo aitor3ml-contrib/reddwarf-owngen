@@ -1179,7 +1179,9 @@ public final class WatchdogServerImpl extends AbstractService implements
 					.getServiceBinding(APP_TIME_BINDING));
 			ManagedSerializable<Long> drift = Objects.uncheckedCast(dataService
 					.getServiceBinding(APP_TIME_DRIFT_BINDING));
-			time.set(currentAppTimeMillis());
+			long catm = currentAppTimeMillis();
+			if (time.get() != catm)
+				time.set(currentAppTimeMillis());
 			if (this.drift != drift.get())
 				drift.set(this.drift);
 		}
