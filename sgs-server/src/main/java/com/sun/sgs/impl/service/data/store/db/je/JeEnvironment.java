@@ -251,6 +251,8 @@ public class JeEnvironment implements DbEnvironment {
 	fullIsolationTxnConfig.setReadCommitted(false);
 	fullIsolationTxnConfig.setReadUncommitted(false);
 	fullIsolationTxnConfig.setSerializableIsolation(true);
+	fullIsolationTxnConfig.setDurability(Durability.COMMIT_WRITE_NO_SYNC);
+	fullIsolationTxnConfig.setSync(false);
     }
 
     /** The default transaction configuration. */
