@@ -463,6 +463,7 @@ public class TaskServiceImpl
                     }
                 }, taskOwner);
         } catch (Exception e) {
+        	e.printStackTrace();
             throw new AssertionError("Failed to setup node-local sets");
         }
 
@@ -1818,6 +1819,8 @@ public class TaskServiceImpl
 
     /** Private method to get or create an owner for a task. */
     private Identity getTaskOwner(Object task) {
+        if(true)
+        	return txnProxy.getCurrentOwner();
         if (task.getClass().getAnnotation(RunWithNewIdentity.class) != null) {
             return new DynamicIdentity(nodeId);
         } else {
