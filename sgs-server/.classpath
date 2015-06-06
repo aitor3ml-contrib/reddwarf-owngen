@@ -5,6 +5,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/jung-graph-impl-2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jung-api-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/je-5.0.73.jar" sourcepath="lib/je"/>
+	<classpathentry kind="lib" path="lib/collections-generic-4.01.jar"/>
 	<classpathentry exported="true" kind="src" path="/sgs-server-api"/>
 	<classpathentry exported="true" kind="src" path="/sgs-server-internal-api"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
